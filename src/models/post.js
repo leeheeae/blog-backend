@@ -7,5 +7,9 @@ const PostSchema = new Schema({
   tags: [String],
   publishedDate: {
     type: Date,
+    default: Date.now,
   },
 });
+
+const Post = mongoose.model('Post', PostSchema);
+export default Post;
