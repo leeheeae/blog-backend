@@ -4,14 +4,13 @@
 
 `eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`
 
-<br/>
+---
 
 ## 데이터베이스의 스키마와 모델
 
 - 스키마 : 컬렉션에 들어가는 문서 내부의 각 필드가 어떤 형식으로 되어 있는지 정의하는 객체
 - 모델 : 스키마를 사용하여 만드는 인스턴스로, 데이터 베이스에서 실제 작업을 처리할 수 있는 함수들을 지니고 있는 객체
 
-<br/>
 <br/>
 
 ### 블로그 프로젝트 - 포스트 스키마
