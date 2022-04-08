@@ -126,3 +126,38 @@ ctx.body = posts;
 const postCount = await Post.countDocuments().exec();
 ctx.set('Last-Page', Math.ceil(postCount / 10));
 ```
+
+**내용 길이 제한**
+
+- body의 길이가 200자 이상이면 뒤에 ...을 붙이고 문자열을 자르는 기능을 구현
+- find()를 통해 조회한 데이터는 mongoose 문서 인스턴스의 형태이므로 데이터를 바로 변형할 수 없음
+- toJSON()함수를 실행하여 JSON 형태로 변환한 뒤 필요한 변형을 일으켜주는 방식을 사용
+- lean()함수를 이용하여 처음부터 데이터를 JSON 형태로 받아오는 방식도 있음
+
+```javascript
+//받아온 데이터를 json형태로 바꾸는 방식
+ctx.body = posts
+  .map((post) => post.toJSON())
+  .map((post) => ({
+    ...post,
+    body: post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+  }));
+```
+
+```javascript
+//처음부터 데이터는 json형태로 받아오는 방식
+const posts = await Post.find()
+  .sort({
+    _id: -1,
+  })
+  .limit(10)
+  .skip((page - 1) * 10)
+  .lean()
+  .exec();
+const postCount = await Post.countDocuments().exec();
+ctx.set('Last-Page', Math.ceil(postCount / 10));
+ctx.body = posts.map((post) => ({
+  ...post,
+  body: post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+}));
+```
