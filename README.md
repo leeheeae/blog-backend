@@ -42,3 +42,15 @@
 |Mixed(Schema.Types.Mixed)|어떤 데이터도 넣을 수 있는 형식|
 |ObjectId(Schema.Types.ObjectId)|객체 아이디, 주로 다른 객체를 참조할 때 넣음|
 |Array|배열 형태의 값으로 []로 감싸서 사용|
+
+### ObjectId 검증
+
+- 올바른 ObjectId인지 확인하고 잘못된 id를 전달했을 때 400 Bad Request 오류를 띄워 주는 것이 맞음
+- 검증코드를 미들웨어로 작성하여 라우트에 쉽게 적용할 수 있음
+
+```javascript
+import mongoose from 'mongoose';
+
+const { ObjectId } = mongoose.Types;
+ObjectId.isValid(id);
+```
