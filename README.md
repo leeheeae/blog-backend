@@ -2,7 +2,7 @@
 
 ### 사용 라이브러리
 
-`eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`
+`eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`, `joi`
 
 ---
 
@@ -54,3 +54,9 @@ import mongoose from 'mongoose';
 const { ObjectId } = mongoose.Types;
 ObjectId.isValid(id);
 ```
+
+### Request Body 검증
+
+- 전달 받은 body를 검증해줘야함
+- 클라이언트가 값을 제대로 전달하지 않았을 경우 400 오류를 발생시켜야함
+- joi 라이브러리를 이용하여 작성예정
