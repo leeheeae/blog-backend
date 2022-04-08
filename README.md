@@ -2,7 +2,7 @@
 
 ### 사용 라이브러리
 
-`eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`, `joi`, `bcrypt`
+`eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`, `joi`, `bcrypt`, `jsonwebtoken`
 
 ---
 
@@ -199,3 +199,25 @@ ctx.body = posts.map((post) => ({
 
 - 서버에서 사용자 로그인 정보를 기억하기 위해 사용하는 리소스가 적음
 - 사용자쪽에서 로그인 상태를 지닌 토큰을 가지고 있으므로 서버의 확장성이 높
+
+### 토큰 발급 및 검증하기
+
+1. 비밀키 설정
+
+- .env 파일에 JWT 토큰을 만들 때 사용할 비밀키를 작성
+
+2. 토큰 발급하기
+
+- jwt.sign(토큰안에 넣을 데이터, jwt 암호, 유효기간)으로 토큰 설정하기
+
+3. 회원가입과 로그인에 성공했을 때 토큰을 사용자에게 전달
+
+- localStorage혹은 SessionStorage에 담아서 사용하는 방법
+  - 구현 방법이 쉬움
+  - 악성 스크립트에 취약함 (XSS 공격 (Cross Site Scripting))
+    - 보안장치를 적용해 놓아도 개발자가 놓칠 수 있는 다양한 취약점을 통해 공격 받을 수 있음
+- 브라우저 쿠키에 담아서 사용하는 방법
+  - 위 방법과 같은 문제가 발생할 수 있지만, httpOnly라는 속성을 활성화하면 자바스크립트를 통해 쿠키를 조회할 수 없으므로 악성 스크립트로 부터 안전함
+  - CSRF(Cross Site Request Forgery)라는 공격에 취약해질 수 있음
+    - 토큰을 쿠키에 담으면 사용자가 서버로 요청을 할 때 무조건 토큰이 함께 전달되는 점을 이용해서 사용자가 모르게 원하지 않는 API 요청을 하게 만듬
+    - CSRF 토큰 사용 및 Referer 검증 등의 방식으로 제대로 막을 수 있음

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new Schema({
   username: String,
@@ -25,6 +26,23 @@ UserSchema.methods.serialize = function () {
 
 UserSchema.statics.findByUsername = function (username) {
   return this.findOne({ username });
+};
+
+UserSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    //첫번째 파라미터에는 토큰 안에 집어넣고 싶은 데이터를 넣음
+    {
+      _id: this.id,
+      username: this.username,
+    },
+    //두번째 파라미터에는 JWT 암호
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d',
+    },
+    //유효기간
+  );
+  return token;
 };
 
 const User = mongoose.model('User', UserSchema);
