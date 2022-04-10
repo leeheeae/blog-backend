@@ -80,10 +80,19 @@ export const login = async (ctx) => {
   } catch (err) {
     ctx.throw(500, err);
   }
-}; 
+};
 
 //로그인 상태 확인
-export const check = async (ctx) => {};
+export const check = async (ctx) => {
+  const { user } = ctx.state;
+  if (!user) {
+    //로그인 중 아님
+    ctx.status = 401;
+    return;
+  }
+
+  ctx.body = user;
+};
 
 //로그아웃
 export const logout = async (ctx) => {};
