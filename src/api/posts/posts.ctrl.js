@@ -6,12 +6,14 @@ const { ObjectId } = mongoose.Types;
 
 export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
+
   if (!ObjectId.isValid(id)) {
     ctx.status = 400;
     return;
   }
   try {
     const post = await Post.findById(id);
+
     if (!post) {
       ctx.status = 404;
       return;
@@ -26,6 +28,7 @@ export const getPostById = async (ctx, next) => {
 
 export const checkOwnPost = (ctx, next) => {
   const { user, post } = ctx.state;
+
   if (post.user._id.toString() !== user._id) {
     ctx.status = 403;
     return;
