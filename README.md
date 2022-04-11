@@ -2,7 +2,7 @@
 
 ### 사용 라이브러리
 
-`eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`, `joi`, `bcrypt`, `jsonwebtoken`
+`eslint`, `prettier`, `eslint-config-prettier`, `nodemon`, `koa`, `koa-router`, `koa-bodyparser`, `mongoose`, `dotenv`, `esm`, `joi`, `bcrypt`, `jsonwebtoken`, `sanitize-html`
 
 ---
 
